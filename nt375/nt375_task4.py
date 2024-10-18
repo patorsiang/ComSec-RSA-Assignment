@@ -113,7 +113,7 @@ def main():
         decryption(N,d)
       case _:
         print_hr()
-        exit(1)
+        exit(0)
 
 if __name__ == "__main__":
   main()
