@@ -1,3 +1,5 @@
+from utils import input_int
+
 def is_prime (n: int) -> tuple[bool, int]:
   if n <= 1:
     return False, None
@@ -23,6 +25,6 @@ def output (n, p):
   print("--------------------------------")
 
 if __name__ == "__main__":
-  n = input("Please enter the parameter n: ")
+  n = input_int("Please enter the parameter n: ")
   prime_num = find_a_prime_num(n)
   output(n, prime_num)

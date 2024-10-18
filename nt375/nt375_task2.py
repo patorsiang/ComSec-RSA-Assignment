@@ -1,8 +1,4 @@
-def floor (x: int) -> int:
-  if x >= 0:
-    return int(x)
-  else:
-    return int(x) - 1 if x != int(x) else int(x)
+from utils import input_int
 
 def EEA(a: int, b: int) -> tuple[int, int, int]:
   print("--------------------------------")
@@ -29,8 +25,8 @@ def output (g: int, x: int, y: int):
   print("--------------------------------")
 
 if __name__ == "__main__":
-  a = input("Please enter a: ")
-  b = input("Please enter b: ")
+  a = input_int("Please enter a: ")
+  b = input_int("Please enter b: ")
 
   g, x, y = EEA(a,b)
   output(g, x, y)

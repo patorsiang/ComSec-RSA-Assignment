@@ -1,3 +1,5 @@
+from utils import input_int
+
 def expo(m: int, e: int, N: int) -> int:
     result = 1
     base = m % N
@@ -14,8 +16,8 @@ def output(ans: int):
   print("-------------------------------------")
 
 if __name__ == "__main__":
-  m = input("Please enter m: ")
-  e = input("Please enter e: ")
-  N = input("Please enter N: ")
+  m = input_int("Please enter m: ")
+  e = input_int("Please enter e: ")
+  N = input_int("Please enter N: ")
 
   output(expo(m, e, N))
