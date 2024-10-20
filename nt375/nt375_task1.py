@@ -1,4 +1,4 @@
-from utils import input_int
+from utils import input_int, print_hr
 
 def expo(m: int, e: int, N: int) -> int:
     result = 1
@@ -11,9 +11,9 @@ def expo(m: int, e: int, N: int) -> int:
     return result
 
 def output(ans: int):
-  print("-------------------------------------")
+  print_hr()
   print(f"The value of m ∧ e mode N is {ans}")
-  print("-------------------------------------")
+  print_hr()
 
 if __name__ == "__main__":
   m = input_int("Please enter m: ")

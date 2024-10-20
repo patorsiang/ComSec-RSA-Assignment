@@ -1,7 +1,7 @@
-from utils import input_int
+from utils import input_int, print_hr
 
 def EEA(a: int, b: int) -> tuple[int, int, int]:
-  print("--------------------------------")
+  print_hr()
   print("The values of (r,s,t) in the steps of EEA are:")
   r1 = a
   s1 = 1
@@ -20,9 +20,9 @@ def EEA(a: int, b: int) -> tuple[int, int, int]:
   return r1, s1, t1
 
 def output (g: int, x: int, y: int):
-  print("--------------------------------")
+  print_hr()
   print(f'The values of (g,x,y) are: ({g}, {x}, {y})')
-  print("--------------------------------")
+  print_hr()
 
 if __name__ == "__main__":
   a = input_int("Please enter a: ")

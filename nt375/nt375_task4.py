@@ -1,5 +1,5 @@
 import random
-from utils import input_int
+from utils import input_int, print_hr
 from nt375_task3 import is_prime_2_step
 from nt375_task1 import expo
 
@@ -33,28 +33,25 @@ def generate_prime(n: int) -> int:
         if is_prime_2_step(p):
             return p
 
-def mod_inverse(e: int, phi: int) -> int:
-    g, x, _ = EEA(e, phi)
+def multiplication_inverse(e: int, M: int) -> int:
+    g, x, _ = EEA(e, M)
     if g != 1:
         raise Exception('Modular inverse does not exist')
-    return x % phi
+    return x % M
 
 def setup(v: int) -> tuple[int, int]:
   p = generate_prime(v//2)
   q = generate_prime(v//2)
   N = p * q
 
-  phi = (p - 1) * (q - 1)
-  e = random.randint(2, phi - 1)
-  while gcd(e, phi) != 1:
-    e = random.randint(2, phi - 1)
+  M = (p - 1) * (q - 1)
+  e = random.randint(2, M - 1)
+  while gcd(e, M) != 1:
+    e = random.randint(2, M - 1)
 
-  d = mod_inverse(e, phi)
+  d = multiplication_inverse(e, M)
 
   return p, q, N, e, d
-
-def print_hr():
-  print("--------------------------------")
 
 def print_setup (p: int, q: int, N: int, e: int, d: int):
   print_hr()
@@ -74,10 +71,11 @@ def input_option () -> int:
   option = input_int("Your options: ")
   return option
 
-def encryption(N: int, e: int, m: int = None):
+def encryption(N: int, e: int, m: int = None) -> int:
   print_hr()
   print("Encryption:")
   print(f"Your message space is the set {{Z/NZ}} = {{0, 1, ..., {N-1}}}")
+  c = None
   if m is None:
     m = input_int("Please enter a number from this set: ")
   if 0 <= m < N:
@@ -85,11 +83,13 @@ def encryption(N: int, e: int, m: int = None):
     print(f"The ciphertext for your message {m} is {c}")
   else:
     print(f"Invalid message! Please enter a number between 0 and {N-1}.")
+  return c
 
-def decryption(N: int, d: int, c: int = None):
+def decryption(N: int, d: int, c: int = None) -> int:
   print_hr()
   print("Decryption:")
   print(f"Your ciphertext space is the set {{Z/NZ}} = {{0, 1, ..., {N-1}}}")
+  m = None
   if c is None:
     c = input_int("Please enter a number from this set: ")
   if 0 <= c < N:
@@ -97,6 +97,7 @@ def decryption(N: int, d: int, c: int = None):
     print(f"The plaintext for your ciphertext {c} is {m}")
   else:
     print(f"Invalid ciphertext! Please enter a number between 0 and {N-1}.")
+  return m
 
 def main():
   nu = input_int("Please enter the security parameter 'nu': ")

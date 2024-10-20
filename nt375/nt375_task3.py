@@ -1,5 +1,5 @@
 import random
-from utils import input_int
+from utils import input_int, print_hr
 
 def is_prime(n: int) -> bool:
     if n <= 1:
@@ -48,9 +48,9 @@ def find_a_prime_num (n: int) -> int:
       return i
 
 def output(n: int, p: int):
-  print("--------------------------------")
+  print_hr()
   print(f"The {n}-bit prime is p = {p}")
-  print("--------------------------------")
+  print_hr()
 
 if __name__ == "__main__":
   n = input_int("Please enter the parameter n: ")
