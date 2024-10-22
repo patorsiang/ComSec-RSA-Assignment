@@ -44,7 +44,7 @@ def modular_inverse(e: int, M: int) -> int:
     return x % M
 
 # Function to set the values for use in encryption and decryption
-def setup(v: int) -> tuple[int, int]:
+def setup(v: int = 20) -> tuple[int, int]:
   # p is the first prime generated (random prime number) (ν/2-bit prime)
   p = generate_prime(v//2)
   # q is the second prime generated (random prime number) (ν/2-bit prime)
@@ -92,49 +92,53 @@ def encryption(N: int, e: int, m: int = None) -> int:
   print("Encryption:")
   print(f"Your message space is the set {{Z/NZ}} = {{0, 1, ..., {N-1}}}")
   c = None
-  if m is None:
-    m = input_int("Please enter a number from this set: ")
-  if 0 <= m < N:
-    c = expo(m, e, N)
-    print(f"The ciphertext for your message {m} is {c}")
-  else:
-    print(f"Invalid message! Please enter a number between 0 and {N-1}.")
-  return c
-
+  while True:
+    if m is None:
+      m = input_int("Please enter a number from this set: ")
+    if 0 <= m < N:
+      c = expo(m, e, N)
+      print(f"The ciphertext for your message {m} is {c}")
+      return c
+    else:
+      print(f"Invalid message! Please enter a number between 0 and {N-1}.")
 # Function to decrypt a ciphertext
 def decryption(N: int, d: int, c: int = None) -> int:
   print_hr() # print break line
   print("Decryption:")
   print(f"Your ciphertext space is the set {{Z/NZ}} = {{0, 1, ..., {N-1}}}")
   m = None
-  if c is None:
-    c = input_int("Please enter a number from this set: ")
-  if 0 <= c < N:
-    m = expo(c, d, N)
-    print(f"The plaintext for your ciphertext {c} is {m}")
-  else:
-    print(f"Invalid ciphertext! Please enter a number between 0 and {N-1}.")
-  return m
-
+  while True:
+    if c is None:
+      c = input_int("Please enter a number from this set: ")
+    if 0 <= c < N:
+      m = expo(c, d, N)
+      print(f"The plaintext for your ciphertext {c} is {m}")
+      return m
+    else:
+      print(f"Invalid ciphertext! Please enter a number between 0 and {N-1}.")
 
 # to run the program and perform encryption and decryption operations
 if __name__ == "__main__":
-  # ν is called "nu"
-  nu = input_int("Please enter the security parameter 'nu': ")
+  try:
+    # ν is called "nu", input value has to be equal to or greater than 6
+    nu = input_int("Please enter the security parameter 'nu': ", 6)
 
-  # Setup the values for use in encryption and decryption
-  p, q, N, e, d = setup(nu)
-  # Print the values from the setup
-  print_setup(p, q, N, e, d)
+    # Setup the values for use in encryption and decryption
+    p, q, N, e, d = setup(nu)
+    # Print the values from the setup
+    print_setup(p, q, N, e, d)
 
-  # Perform encryption and decryption operations in a loop until the user chooses to quit
-  while True:
-    option = input_option()
-    match option:
-      case 1:
-        encryption(N,e)
-      case 2:
-        decryption(N,d)
-      case _:
-        print_hr() # print break line
-        exit(0)
+    # Perform encryption and decryption operations in a loop until the user chooses to quit
+    while True:
+      option = input_option()
+      match option:
+        case 1:
+          encryption(N,e)
+        case 2:
+          decryption(N,d)
+        case _:
+          print_hr() # print break line
+          exit(0)
+  except Exception as e:
+    print_hr() # print break line
+    print(f"An error occurred: {e}")

@@ -67,8 +67,8 @@ def output(n: int, p: int):
   print_hr() # print break line
 
 if __name__ == "__main__":
-  # taking a parameter n
-  n = input_int("Please enter the parameter n: ")
+  # taking a parameter n, the input should be equal or greater than 3
+  n = input_int("Please enter the parameter n: ", 3)
   # finding the first prime number between 2^(n-1) and 2^(n)
   prime_num = find_a_prime_num(n)
   # printing the result in the required format

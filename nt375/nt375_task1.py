@@ -1,4 +1,4 @@
-from utils import input_positive_int, print_hr # Import helper functions from utils
+from utils import input_int, print_hr # Import helper functions from utils
 
 # Function to calculate m^e mod N by taking m, e, and N.
 def expo(m: int, e: int, N: int) -> int:
@@ -19,9 +19,9 @@ def output(ans: int):
 
 if __name__ == "__main__":
   # taking a positive number of arguments, m, e, and N
-  m = input_positive_int("Please enter m: ")
-  e = input_positive_int("Please enter e: ")
-  N = input_positive_int("Please enter N: ")
+  m = input_int("Please enter m: ", 0)
+  e = input_int("Please enter e: ", 0)
+  N = input_int("Please enter N: ", 0)
 
   # calling the expo function with m, e, and N and printing the result
   output(expo(m, e, N))
