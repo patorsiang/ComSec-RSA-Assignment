@@ -8,6 +8,7 @@ def is_prime(n: int) -> bool:
     return False
   start_num = 2
   end_num = int(n ** 0.5) + 1  # You can directly cast to int for square root
+  # Check if it is a number composite or not between 2 and square root of the number
   for i in range(start_num, end_num):
     if n % i == 0:
       return False
@@ -51,7 +52,7 @@ def is_prime_2_step (n: int, k: int = 50) -> bool:
   return is_prime_by_fermat_primality_test(n, k)
 
 
-# Function to find first prime number between 2^(n-1) and 2^(n).
+# Function to find first prime number between 2^(n-1) and 2^(n) - 1.
 def find_a_prime_num (n: int) -> int:
   start_num = 2 ** (n-1)
   end_num = 2 ** (n)
