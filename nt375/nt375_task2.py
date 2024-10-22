@@ -1,8 +1,8 @@
 from utils import input_int, print_hr # Import helper functions from utils
 
 # Function implementing the Extended Euclidean algorithm (EEA)
-# It receives 2 integers, a and b, and return 3 numbers, r1, s1, and t1
-# for computing GCD (greatest common divisor) of a and b
+# It receives two integers, a and b, and returns three numbers, r1, s1, and t1
+# for computing the GCD (greatest common divisor) of a and b
 # gcd(a, b) = ax + by -> r1 = gcd(a, b), s1 = x, t1 = y
 def EEA(a: int, b: int) -> tuple[int, int, int]:
   print_hr()  # print break line

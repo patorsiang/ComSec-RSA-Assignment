@@ -32,22 +32,22 @@ def is_prime_by_partial_trials_division(n: int) -> bool:
       return False
   return True
 
-# Function to check number: it is prime or not by using the Fermat's primality testing algorithm
+# Function to check number: it is prime or not by using Fermat's primality testing algorithm
 def is_prime_by_fermat_primality_test(n: int, k: int = 50) -> bool:
   for _ in range(k): # check for k times
     a = random.randint(2, n - 1) # random number
     if expo(a, n-1, n) != 1: # if a is not prime a^(n-1) mod n doesn't equal 1
       return False
-  # if n passes all tests, it is (probably) prime
+  # If n passes all tests, it is (probably) prime
   return True
 
-# check prime numbers following 2 steps
+# check prime numbers following two steps
 def is_prime_2_step (n: int, k: int = 50) -> bool:
   # step1: check between 0 and 100 can be a partial divisor
   if not is_prime_by_partial_trials_division(n):
     return False # if there is a partial divisor, it is (probably) prime
 
-  # step2: check Fermat's primality testing algorithm to confirm if it is prime, in the condition that it passes the step 1
+  # step2: Check Fermat's primality testing algorithm to confirm if it is prime, in the condition that it passes step 1
   return is_prime_by_fermat_primality_test(n, k)
 
 

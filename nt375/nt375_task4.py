@@ -3,7 +3,7 @@ from utils import input_int, print_hr # Import helper functions from utils
 from nt375_task3 import is_prime_2_step # Import is_prime_2_step for checking prime function from task3
 from nt375_task1 import expo # Import the expo module from task1
 
-# Function to find Greatest Common Divisor between a and b following Euclidean Algorithm
+# Function to find the Greatest Common Divisor between a and b following Euclidean Algorithm
 def gcd (a, b):
   if b > a:
     a, b = b, a
@@ -12,7 +12,7 @@ def gcd (a, b):
     a, b = b, a % b
   return a
 
-# Function implementing the Extended Euclidean algorithm (EEA) following task 3 but remove printing msg
+# Function implementing the Extended Euclidean algorithm (EEA) following task 3 but removing printing msg
 def EEA(a: int, b: int) -> tuple[int, int, int]:
   r1 = a
   s1 = 1
@@ -33,7 +33,7 @@ def EEA(a: int, b: int) -> tuple[int, int, int]:
 def generate_prime(n: int) -> int:
     while True:
         p = random.randint(2**(n-1), 2**n - 1) # random number between 2^(n-1) and 2^n - 1
-        if is_prime_2_step(p): # the random number, if it is prime send it out
+        if is_prime_2_step(p): # the random number, if it is prime, send it out
             return p
 
 # Function to find d; d is the multiplication inverse of e by using EEA and mod M
@@ -43,7 +43,7 @@ def modular_inverse(e: int, M: int) -> int:
         raise Exception('Modular inverse does not exist')
     return x % M
 
-# Function to setup the values for using in encryption and decryption
+# Function to set the values for use in encryption and decryption
 def setup(v: int) -> tuple[int, int]:
   # p is the first prime generated (random prime number) (ν/2-bit prime)
   p = generate_prime(v//2)
@@ -54,7 +54,7 @@ def setup(v: int) -> tuple[int, int]:
   # M is phi of N
   M = (p - 1) * (q - 1)
 
-  # e has to be mutually prime with M, using to be a encryption key
+  # e has to be mutually prime with M, using an encryption key
   e = random.randint(2, M - 1)
   while gcd(e, M) != 1:
     e = random.randint(2, M - 1)
@@ -64,7 +64,7 @@ def setup(v: int) -> tuple[int, int]:
 
   return p, q, N, e, d
 
-# Function to show the values from setup function
+# Function to show the values from the setup function
 def print_setup (p: int, q: int, N: int, e: int, d: int):
   print_hr() # print break line
   print("Setup: ")
@@ -117,17 +117,17 @@ def decryption(N: int, d: int, c: int = None) -> int:
   return m
 
 
-# Main function to run the program and perform encryption and decryption operations
-def main():
+# to run the program and perform encryption and decryption operations
+if __name__ == "__main__":
   # ν is called "nu"
   nu = input_int("Please enter the security parameter 'nu': ")
 
-  # Setup the values for using in encryption and decryption
+  # Setup the values for use in encryption and decryption
   p, q, N, e, d = setup(nu)
-  # Print the values from setup
+  # Print the values from the setup
   print_setup(p, q, N, e, d)
 
-  # Perform encryption and decryption operations in a loop until user chooses to quit
+  # Perform encryption and decryption operations in a loop until the user chooses to quit
   while True:
     option = input_option()
     match option:
@@ -138,6 +138,3 @@ def main():
       case _:
         print_hr() # print break line
         exit(0)
-
-if __name__ == "__main__":
-  main()

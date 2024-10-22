@@ -1,10 +1,10 @@
-# Function to ensure the input is integer
+# Function to ensure the input is an integer
 def input_int(label: str) -> int:
   while True:
     try:
       return int(input(label)) # Prompt the user with a label and convert it to an integer
     except ValueError:
-      # if the input is not an integer, then show the error message and require the user to enter otherwise
+      # If the input is not an integer, then show the error message and require the user to enter; otherwise
       print("Invalid input. Please enter an integer.")
 
 # Function to ensure the input is a positive integer
