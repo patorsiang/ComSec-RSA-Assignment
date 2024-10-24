@@ -1,3 +1,4 @@
+# Task 3: Finding a prime number.
 import random # Import the random module for generating random numbers
 from nt375_task1 import expo # Import the expo module from task1
 from utils import input_int, print_hr # Import helper functions from utils
@@ -8,7 +9,7 @@ def is_prime(n: int) -> bool:
     return False
   start_num = 2
   end_num = int(n ** 0.5) + 1  # You can directly cast to int for square root
-  # Check if it is a number composite or not between 2 and square root of the number
+  # Check if it is a number composite or not between 2 and the square root of the number
   for i in range(start_num, end_num):
     if n % i == 0:
       return False
@@ -17,10 +18,10 @@ def is_prime(n: int) -> bool:
 # Function to generate prime numbers array including numbers between 0 and 100
 def primes_arr_between_1_and_100():
     primes = []
-    for num in range(2, 101):
+    for num in range(2, 101): # 2 is the first prime number as all knows about it, so starting from 2 until 101
         if is_prime(num):
-            primes.append(num)
-    return primes
+            primes.append(num) # if it is a prime number, add to the array
+    return primes # return prime numbers array
 
 # Global variables
 # prime numbers array including prime numbers between 0 and 100
@@ -68,7 +69,7 @@ def output(n: int, p: int):
   print_hr() # print break line
 
 if __name__ == "__main__":
-  # taking a parameter n, the input should be equal or greater than 3
+  # Taking a parameter n, the input should be equal to or greater than 3; limit it because the look will crash
   n = input_int("Please enter the parameter n: ", 3)
   # finding the first prime number between 2^(n-1) and 2^(n)
   prime_num = find_a_prime_num(n)

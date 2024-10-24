@@ -1,9 +1,10 @@
+# Task 1: Exponentiation
 from utils import input_int, print_hr # Import helper functions from utils
 
 # Function to calculate m^e mod N by taking m, e, and N.
 def expo(m: int, e: int, N: int) -> int:
     result = 1 # initial value
-    base = m % N # step 1: Compute the base modulus N
+    base = m % N # compute the base modulus N
     while e > 0:
         if e % 2 == 1: # If e is odd, multiply by the current base
             result = (result * base) % N

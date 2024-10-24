@@ -1,7 +1,9 @@
+# Task 4: "Naive" RSA encryption system implementation.
 import random # Import the random module for generating random numbers
 from utils import input_int, print_hr # Import helper functions from utils
-from nt375_task3 import is_prime_2_step # Import is_prime_2_step for checking prime function from task3
 from nt375_task1 import expo # Import the expo module from task1
+from nt375_task2 import EEA # Import EEA function from task2
+from nt375_task3 import is_prime_2_step # Import is_prime_2_step for checking prime function from task3
 
 # Function to find the Greatest Common Divisor between a and b following Euclidean Algorithm
 def gcd (a, b):
@@ -12,23 +14,6 @@ def gcd (a, b):
     a, b = b, a % b
   return a
 
-# Function implementing the Extended Euclidean algorithm (EEA) following task 3 but removing printing msg
-def EEA(a: int, b: int) -> tuple[int, int, int]:
-  r1 = a
-  s1 = 1
-  t1 = 0
-  r = b
-  s = 0
-  t = 1
-
-  while r != 0:
-    q = r1 // r
-    r1, r = r, r1 - q * r
-    s1, s = s, s1 - q * s
-    t1, t = t, t1 - q * t
-
-  return r1, s1, t1
-
 # Function to generate a random prime number
 def generate_prime(n: int) -> int:
     while True:
@@ -38,7 +23,7 @@ def generate_prime(n: int) -> int:
 
 # Function to find d; d is the multiplication inverse of e by using EEA and mod M
 def modular_inverse(e: int, M: int) -> int:
-    g, x, _ = EEA(e, M)
+    g, x, _ = EEA(e, M, False)
     if g != 1:
         raise Exception('Modular inverse does not exist')
     return x % M
@@ -85,42 +70,26 @@ def input_option () -> int:
   option = input_int("Your options: ")
   return option
 
-
-# Function to encrypt a message
-def encryption(N: int, e: int, m: int = None) -> int:
-  print_hr() # print break line
-  print("Encryption:")
-  print(f"Your message space is the set {{Z/NZ}} = {{0, 1, ..., {N-1}}}")
-  c = None
+# Function to encrypt and decrypt a message
+def encrypt_decrypt(N: int, e: int, msg: int = None, encrypt: bool = True) -> int:
+  print("Encryption:" if encrypt else "Decryption")
+  source = "message" if encrypt else "ciphertext"
+  print(f"Your {source} space is the set {{Z/NZ}} = {{0, 1, ..., {N-1}}}")
+  cipher = None
   while True:
-    if m is None:
-      m = input_int("Please enter a number from this set: ")
-    if 0 <= m < N:
-      c = expo(m, e, N)
-      print(f"The ciphertext for your message {m} is {c}")
-      return c
+    if msg is None:
+      msg = input_int("Please enter a number from this set: ")
+    if 0 <= msg < N: # check msg; only number between 0 and N is allowed to encrypt
+      cipher = expo(msg, e, N) # this is the main of this function
+      print(f"The {"ciphertext" if encrypt else "plaintext"} for your {source} {msg} is {cipher}")
+      return cipher
     else:
-      print(f"Invalid message! Please enter a number between 0 and {N-1}.")
-# Function to decrypt a ciphertext
-def decryption(N: int, d: int, c: int = None) -> int:
-  print_hr() # print break line
-  print("Decryption:")
-  print(f"Your ciphertext space is the set {{Z/NZ}} = {{0, 1, ..., {N-1}}}")
-  m = None
-  while True:
-    if c is None:
-      c = input_int("Please enter a number from this set: ")
-    if 0 <= c < N:
-      m = expo(c, d, N)
-      print(f"The plaintext for your ciphertext {c} is {m}")
-      return m
-    else:
-      print(f"Invalid ciphertext! Please enter a number between 0 and {N-1}.")
+      print(f"Invalid {source}! Please enter a number between 0 and {N-1}.")
 
 # to run the program and perform encryption and decryption operations
 if __name__ == "__main__":
   try:
-    # ν is called "nu", input value has to be equal to or greater than 6
+    # ν is called "nu," input value has to be equal to or greater than 6
     nu = input_int("Please enter the security parameter 'nu': ", 6)
 
     # Setup the values for use in encryption and decryption
@@ -131,13 +100,13 @@ if __name__ == "__main__":
     # Perform encryption and decryption operations in a loop until the user chooses to quit
     while True:
       option = input_option()
+      print_hr() # print break line
       match option:
         case 1:
-          encryption(N,e)
+          encrypt_decrypt(N,e)
         case 2:
-          decryption(N,d)
+          encrypt_decrypt(N,d, encrypt=False)
         case _:
-          print_hr() # print break line
           exit(0)
   except Exception as e:
     print_hr() # print break line
