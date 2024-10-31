@@ -5,14 +5,15 @@ from utils import input_int, print_hr # Import helper functions from utils
 # It receives two integers, a and b, and returns three numbers, r1, s1, and t1
 # for computing the GCD (greatest common divisor) of a and b
 # gcd(a, b) = ax + by -> r1 = gcd(a, b), s1 = x, t1 = y
+
 def EEA(a: int, b: int, wantedPrint: bool = True) -> tuple[int, int, int]:
   # Initialization step for r1, s1, t1, r, s, and t
-  r1 = a # Initial r1  equal to a
-  s1 = 1 # Initial s1 equal to 1
-  t1 = 0 # Initial t1 equal to 0
-  r = b # Initial r equal to b
-  s = 0 # Initial s equal to 0
-  t = 1 # Initial t equal to 1
+  r1 = a # Initial r1  equal to a, Initial remainder for a
+  s1 = 1 # Initial s1 equal to 1, Coefficient of a
+  t1 = 0 # Initial t1 equal to 0, Coefficient of b
+  r = b # Initial r equal to b, Initial remainder for b
+  s = 0 # Initial s equal to 0, Initial s for b
+  t = 1 # Initial t equal to 1, # Initial t for b
 
   # Perform the Extended Euclidean algorithm until r becomes 0
   while r != 0:

@@ -30,24 +30,39 @@ def modular_inverse(e: int, M: int) -> int:
 
 # Function to set the values for use in encryption and decryption
 def setup(v: int = 20) -> tuple[int, int]:
-  # p is the first prime generated (random prime number) (ν/2-bit prime)
-  p = generate_prime(v//2)
-  # q is the second prime generated (random prime number) (ν/2-bit prime)
-  q = generate_prime(v//2)
-  # N is the product of p and q
-  N = p * q
-  # M is phi of N
-  M = (p - 1) * (q - 1)
+  time = 0
+  while True:
+    # p is the first prime generated (random prime number) (ν/2-bit prime)
+    p = generate_prime(v//2)
+    q = p
 
-  # e has to be mutually prime with M, using an encryption key
-  e = random.randint(2, M - 1)
-  while gcd(e, M) != 1:
+    # p cannot be the same with q
+    while p == q:
+      # q is the second prime generated (random prime number) (ν/2-bit prime)
+      q = generate_prime(v//2)
+
+    # N is the product of p and q
+    N = p * q
+    # M is phi of N
+    M = (p - 1) * (q - 1)
+
+    # e has to be mutually prime with M, using an encryption key
     e = random.randint(2, M - 1)
+    while gcd(e, M) != 1:
+      e = random.randint(2, M - 1)
 
-  # d is the multiplication inverse of e by using EEA and mod M
-  d = modular_inverse(e, M)
+    # d is the multiplication inverse of e by using EEA and mod M
+    d = modular_inverse(e, M)
 
-  return p, q, N, e, d
+    # encryption key should not equal to decryption key
+    if d is not e:
+      return p, q, N, e, d
+
+    time += 1
+    max_time = len(range(2**(v//2-1), 2**(v//2)))
+
+    if time > max_time:
+      return 0, 0, 0, 0, 0
 
 # Function to show the values from the setup function
 def print_setup (p: int, q: int, N: int, e: int, d: int):
@@ -94,6 +109,10 @@ if __name__ == "__main__":
 
     # Setup the values for use in encryption and decryption
     p, q, N, e, d = setup(nu)
+
+    if p == 0:
+      raise ValueError(f"Cannot find the encryption or decryption key under 'nu' = {nu}")
+
     # Print the values from the setup
     print_setup(p, q, N, e, d)
 
@@ -111,3 +130,4 @@ if __name__ == "__main__":
   except Exception as e:
     print_hr() # print break line
     print(f"An error occurred: {e}")
+    exit(1)
