@@ -15,9 +15,9 @@ def gcd (a, b):
   return a
 
 # Function to generate a random prime number
-def generate_prime(n: int) -> int:
+def generate_prime(start: int, end: int) -> int:
     while True:
-        p = random.randint(2**(n-1), 2**n - 1) # random number between 2^(n-1) and 2^n - 1
+        p = random.randint(start, end) # random number between 2^(n-1) and 2^n - 1
         if is_prime_2_step(p): # the random number, if it is prime, send it out
             return p
 
@@ -32,14 +32,17 @@ def modular_inverse(e: int, M: int) -> int:
 def setup(v: int = 20) -> tuple[int, int]:
   time = 0
   while True:
+    n = v // 2 # n is the number of bits (v/2-bit)
+    # start and end are the range of numbers to generate the first and second prime numbers (ν/2-bit prime)
+    start, end = 2**(n-1), 2**n - 1
     # p is the first prime generated (random prime number) (ν/2-bit prime)
-    p = generate_prime(v//2)
+    p = generate_prime(start, end)
     q = p
 
     # p cannot be the same with q
     while p == q:
       # q is the second prime generated (random prime number) (ν/2-bit prime)
-      q = generate_prime(v//2)
+      q = generate_prime(start, end)
 
     # N is the product of p and q
     N = p * q
@@ -59,7 +62,7 @@ def setup(v: int = 20) -> tuple[int, int]:
       return p, q, N, e, d
 
     time += 1
-    max_time = len(range(2**(v//2-1), 2**(v//2)))
+    max_time = len(range(start, end))
 
     if time > max_time:
       return 0, 0, 0, 0, 0
