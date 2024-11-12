@@ -65,7 +65,7 @@ def find_a_prime_num (n: int) -> int:
 # Function to show the final output following the format
 def output(n: int, p: int):
   print_hr() # print break line
-  print(f"The {n}-bit prime is p = {p}")
+  print(f"The n-bit prime is p = {p}")
   print_hr() # print break line
 
 if __name__ == "__main__":

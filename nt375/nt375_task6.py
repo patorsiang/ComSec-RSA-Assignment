@@ -11,7 +11,7 @@ def find_modified_c_and_inverse_of_2 (c: int, e: int, N: int) -> tuple[int, int]
 
   # Calculate the modular inverse of 2 mod N
   inverse_of_2 = modular_inverse(2, N)
-  print(f"The inverse of 2 mode {N} is = {inverse_of_2}")
+  print(f"The inverse of 2 mod {N} is = {inverse_of_2}")
 
   print_hr() # print break line
   return modified_c, inverse_of_2
